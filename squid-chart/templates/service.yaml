@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "squid-chart.fullname" . }}
+  labels:
+    {{- include "squid-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: squid
+      protocol: TCP
+      name: squid
+  selector:
+    {{- include "squid-chart.selectorLabels" . | nindent 4 }}
